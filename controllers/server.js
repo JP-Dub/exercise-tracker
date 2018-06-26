@@ -53,7 +53,7 @@ function ClickHandler ()  {
   
     this.printLog = (req, res) => {
       //console.log(req.query, req.params)
-      Users.findOne({}, (err, user) => {
+      Users.findOne({}).select().limit(), (err, user) => {
         if(err) throw err;
         console.log(user)
       });
