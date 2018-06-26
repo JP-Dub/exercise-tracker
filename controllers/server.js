@@ -11,34 +11,41 @@ function ClickHandler ()  {
   
     this.addUser = (req, res) => {
       
-      Users.find(req.body, (err, user) => {
+      Users.findOne(req.body, (err, user) => {
         if(err) throw err;
-        console.log(user)
-        
-        if(!user) {
-          // create random 6 alphanum
+
+        if(user) {
+          // user already exists
+          let username = user.username;
+          res.json({username : 'username already exists. Try another username please!'});
+
+        } else {
+          // create random 6 alphanumeric string
           let password = req.body.username + '-';    
           for (var i = 0; i < 6; i++) {
             password += str[Math.floor(Math.random() * str.length)];
           }
-          
+          // create new user
           var newUser = new Users();
           newUser.username = req.body.username;
           newUser.userId = password;
-        
+          // save new user
           newUser.save( err => {
             if(err) throw err;
             res.json({username: req.body.username, userId : password});
-          }, {returnOriginal : false});
-
-        } else {
-          let username = user.username;
-          res.json({username : 'username already exists. Try another username please!'});
+          }, {returnOriginal : false});  
         }
-      });
+        
+      }); //end of .findOne()
     }
     
     this.logExercise = (req, res) => {
+      
+      Users.findOne({userId: req.body.userId}, (err, log) => {
+        if(err) throw err;
+        console.log(log)
+      }); // end of .findOne()
+      
     };
 };
 
