@@ -42,19 +42,17 @@ function ClickHandler ()  {
       Users.findOne({userId : req.body.userId}, (err, user) => {
         if(err) throw err;
         console.log(user)
-        /*var log = user[0].log;           
-                
-             ({
-                description : req.body.description,
-                duration : req.body.duration,
-                date : req.body.date
-              });
-        */
-        //Users.save((err, user) => {
-        // if(err) throw err;
-          //console.log('Saved', user)
+        var log = user.log;           
+        log.description = req.body.description;
+        log.duration = req.body.duration;
+        log.date = req.body.date;
+              
+        
+        user.save((err, user) => {
+         if(err) throw err;
+          console.log('Saved', user)
         res.json({"Your exercise is logged": { "description": req.body.description, "duration" : req.body.duration + " min", "date": req.body.date} });
-       // });
+        }, {returnOriginal : true});
       }); // end of .findOne()
       
     };
