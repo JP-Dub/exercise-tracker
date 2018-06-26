@@ -38,27 +38,24 @@ function ClickHandler ()  {
     
     this.logExercise = (req, res) => {
       
-      Users.findOne({userId: req.body.userId}, (err, log) => {
+      Users.findOneAndUpdate({userId: req.body.userId}, { log: {
+                description : req.body.description,
+                duration : req.body.duration,
+                date : req.body.date}
+          }, (err, log) => {
         if(err) throw err;
-        // create a record of exercise submitted
-        var newLog = new Users();
-        newLog.description = req.body.description;
-        newLog.duration = req.body.duration;
-        newLog.date = req.body.date;
-        // save exercise log
-        newLog.save( err => {
-          if(err) throw err;
-          res.json({"Your exercise is logged": { "description": req.body.description, "duration" : req.body.duration + " min", "date": req.body.date} });
-        });
+        
+        res.json({"Your exercise is logged": { "description": req.body.description, "duration" : req.body.duration + " min", "date": req.body.date} });
+        
       }); // end of .findOne()
       
     };
   
     this.printLog = (req, res) => {
       console.log(req.query, req.params)
-      Users.find({}, (err, log) => {
+      Users.find({}, (err, user) => {
         if(err) throw err;
-        console.log(log)
+        console.log(user[0].log)
       });
       res.json({"log" : "showlog"});
     };
