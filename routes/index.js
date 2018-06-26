@@ -5,11 +5,6 @@ var ClickHandler = require(path + '/controllers/server.js');
 
 module.exports = (app) => {
   
-  function checkRoute(req, res, next) {
-    console.log(req.path, req.method)
-    let route = 'api/exercise';
-    //req.path === route + '/new-user' == clickHandler
-  }
   
   let clickHandler = new ClickHandler();
   
@@ -19,9 +14,9 @@ module.exports = (app) => {
 	  });
   
   app.route('/api/exercise/:path')
-  .get(checkRoute, clickHandler.printLog)
-  .post(checkRoute, clickHandler.addUser)
-  .post(checkRoute, clickHandler.logExercise);
+  
+  .post(clickHandler.addUser);
+  
   /*
   app.route('/api/exercise/new-user')
      .post(clickHandler.addUser);
