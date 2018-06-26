@@ -52,10 +52,10 @@ function ClickHandler ()  {
     };
   
     this.printLog = (req, res) => {
-      console.log(req.query, req.params)
-      Users.find({}, (err, user) => {
+      //console.log(req.query, req.params)
+      Users.findOne({}, (err, user) => {
         if(err) throw err;
-        console.log(user[0].log)
+        console.log(user)
       });
       res.json({"log" : "showlog"});
     };
