@@ -38,13 +38,17 @@ function ClickHandler ()  {
     
     this.logExercise = (req, res) => {
       
-      Users.findOneAndUpdate({userId: req.body.userId}, { log: {
+      Users.findOne({userId: req.body.userId}, (err, user) => {
+        if(err) throw err;
+        console.log(user)
+         //let log = user.log;           
+                /*
+              log.push({
                 description : req.body.description,
                 duration : req.body.duration,
-                date : req.body.date}
-          }, (err, log) => {
-        if(err) throw err;
-        
+                date : req.body.date
+              });*/
+      
         res.json({"Your exercise is logged": { "description": req.body.description, "duration" : req.body.duration + " min", "date": req.body.date} });
         
       }); // end of .findOne()
@@ -62,5 +66,6 @@ function ClickHandler ()  {
 };
 
 module.exports = ClickHandler;
-      
+ 
+//Joel-gg6yBd
       
