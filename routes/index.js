@@ -21,6 +21,7 @@ module.exports = (app) => {
   app.route('/api/exercise/add')
      .post( (req, res) => {
         console.log(req.body);
+    
      });
   
   // Error Handling middleware

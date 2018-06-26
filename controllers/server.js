@@ -27,7 +27,7 @@ function ClickHandler ()  {
           var newUser = new Users();
           newUser.username = req.body.username;
           newUser.userId = password;
-          
+          console.log(user)
           newUser.save( err => {
             if(err) throw err;
             res.json({username: req.body.username, userId : password});
