@@ -14,17 +14,20 @@ app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
 
 
-app.use(express.static('public'))
-app.get('/', (req, res) => {
+app.use(express.static('public'));
+app.use(express.static('views'));
+
+/*app.get('/', (req, res) => {
   res.sendFile(__dirname + '/views/index.html')
-});
+});*/
+
 /*
 // Not found middleware
 app.use((req, res, next) => {
   console.log(req.body)
   return next({status: 404, message: 'not found'})
 })
-*/
+
 // Error Handling middleware
 app.use((err, req, res, next) => {
   let errCode, errMessage
@@ -43,7 +46,7 @@ app.use((err, req, res, next) => {
   res.status(errCode).type('txt')
     .send(errMessage)
 })
-
+*/
 routes(app);
 
 const listener = app.listen(process.env.PORT || 3000, () => {

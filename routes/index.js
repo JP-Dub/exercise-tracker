@@ -1,10 +1,16 @@
 'use strict';
+var path = process.cwd();
 
-module.exports = function(app) {
+module.exports = (app) => {
   
-  app.route('/api/exercise/new-user/:name')
+  app.route('/')
+		 .get( (req, res) => {
+		     res.sendFile(path + '/views/index.html');
+		});
+  
+  app.route('/api/exercise/new-user')
       .post( (req, res) => {
-        console.log(req.params, req.path, req.body.name)
+        console.log(req.params, req.path, req.body)
       });
   
   
