@@ -5,6 +5,10 @@ var ClickHandler = require(path + '/controllers/server.js');
 
 module.exports = (app) => {
   
+  function checkRoute(req, res, next) {
+    console.log(
+  }
+  
   let clickHandler = new ClickHandler();
   
   app.route('/')
@@ -12,13 +16,18 @@ module.exports = (app) => {
 		     res.sendFile(path + '/views/index.html');
 	  });
   
+  app.route('/api/exercise')
+  //.get('/log', clickHandler.printLog)
+  .post('/new-user', clickHandler.logExercise)
+  .post('/add', clickHandler.logExercise);
+  /*
   app.route('/api/exercise/new-user')
      .post(clickHandler.addUser);
   
   
   app.route('/api/exercise/add')
      .post(clickHandler.logExercise);
-  
+  */
   // Error Handling middleware
   app.use((err, req, res, next) => {
     let errCode, errMessage

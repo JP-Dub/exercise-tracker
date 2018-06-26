@@ -58,12 +58,12 @@ function ClickHandler ()  {
     };
   
     this.printLog = (req, res) => {
-      
-      Users.findOne(req.body.userId, (err, log) => {
+      console.log(req.query)
+      Users.findOne(req.query.userId, (err, log) => {
         if(err) throw err;
         console.log(log)
       });
-      
+      res.json({"log" : "showlog"});
     };
 };
 
