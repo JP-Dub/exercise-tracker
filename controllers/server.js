@@ -13,6 +13,7 @@ function ClickHandler ()  {
 
         if(user) {
           // user already exists
+          console.log(user)
           let username = user.username;
           res.json({username : 'username already exists. Try another username please!'});
 
@@ -38,17 +39,24 @@ function ClickHandler ()  {
     
     this.logExercise = (req, res) => {
       
-      Users.find({userId: req.body.userId}).select({log:1}).exec( (err, user) => {
+      Users.findOneAndUpdate({userId: req.body.userId}, {
+                description : req.body.description,
+                duration : req.body.duration,
+                date : req.body.date
+              }, {
+                upsert: true,
+                fields: 'log'
+              }, (err, user) => {
         if(err) throw err;
         console.log(user)
         /*var log = user[0].log;           
-                */
-              user[0].log.push({
+                
+             ({
                 description : req.body.description,
                 duration : req.body.duration,
                 date : req.body.date
               });
-        
+        */
         //Users.save((err, user) => {
         // if(err) throw err;
           //console.log('Saved', user)
