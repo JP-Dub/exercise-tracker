@@ -39,14 +39,7 @@ function ClickHandler ()  {
     
     this.logExercise = (req, res) => {
       
-      Users.findOneAndUpdate({userId: req.body.userId}, {
-                description : req.body.description,
-                duration : req.body.duration,
-                date : req.body.date
-              }, {
-                upsert: true,
-                fields: 'log'
-              }, (err, user) => {
+      Users.findOne({userId : req.body.userId}, (err, user) => {
         if(err) throw err;
         console.log(user)
         /*var log = user[0].log;           
@@ -78,5 +71,5 @@ function ClickHandler ()  {
 
 module.exports = ClickHandler;
  
-//Joel-gg6yBd
-//{"username":"Joel","userId":"Joel-hoh8Bz"}
+
+//{"username":"Joel","userId":"Joel-R82uIB"}
