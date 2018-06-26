@@ -13,18 +13,15 @@ module.exports = (app) => {
 		     res.sendFile(path + '/views/index.html');
 	  });
   
-  app.route('/api/exercise/:path')
-  
-  .post(clickHandler.addUser);
-  
-  /*
   app.route('/api/exercise/new-user')
      .post(clickHandler.addUser);
   
-  
   app.route('/api/exercise/add')
      .post(clickHandler.logExercise);
-  */
+  
+  app.route('/api/exercise/log/')
+     .get(clickHandler.printLog);
+  
   // Error Handling middleware
   app.use((err, req, res, next) => {
     let errCode, errMessage

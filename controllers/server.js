@@ -55,8 +55,8 @@ function ClickHandler ()  {
     };
   
     this.printLog = (req, res) => {
-      console.log(req.query)
-      Users.findOne(req.query.userId, (err, log) => {
+      console.log(req.query, req.params)
+      Users.find({}, (err, log) => {
         if(err) throw err;
         console.log(log)
       });
