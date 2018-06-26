@@ -10,19 +10,14 @@ var str = "abcde0fghij1klmno2pqrst3uvwxy4zABCD5EFGHI6JKLMN7OPQRS8TUVWX9YZ";  // 
 function ClickHandler ()  {
   
     this.addUser = (req, res) => {
-      console.log(req.body, "body");
-      Users.find({}, (err, user) => {
-         if(err) throw err;
+      
+      Users.find(req.body, (err, user) => {
+        if(err) throw err;
         console.log(user)
-        /*
-       
-        if(user) {
-          console.log(user);
-          let username = user.username;
-          res.json({username : 'username already exists. Try another username please!'});
-        } else {
-          // create userID
-          let password = 'XTuser-';    
+        
+        if(!user) {
+          // create random 6 alphanum
+          let password = req.body.username + '-';    
           for (var i = 0; i < 6; i++) {
             password += str[Math.floor(Math.random() * str.length)];
           }
@@ -30,12 +25,16 @@ function ClickHandler ()  {
           var newUser = new Users();
           newUser.username = req.body.username;
           newUser.userId = password;
-          console.log(user)
+        
           newUser.save( err => {
             if(err) throw err;
             res.json({username: req.body.username, userId : password});
           }, {returnOriginal : false});
-        } */
+
+        } else {
+          let username = user.username;
+          res.json({username : 'username already exists. Try another username please!'});
+        }
       });
     }
     
