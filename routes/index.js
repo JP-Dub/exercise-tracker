@@ -2,13 +2,14 @@
 
 module.exports = function(app) {
   
-  app.route('/api/exercise/:new-user')
+  app.route('/api/exercise/new-user/:name')
       .post( (req, res) => {
-        console.log(req.body, req.path)
+        console.log(req.params, req.path, req.body.name)
       });
   
-  app.route('/api/exercise/:add')
-  app.post('/api/exercise/:add', (req, res) => {
+  
+  app.route('/api/exercise/add')
+     .post( (req, res) => {
         console.log(req.body);
       });
   

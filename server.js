@@ -1,7 +1,7 @@
 const express = require('express')
-const app = express()
-const bodyParser = require('body-parser')
 const routes = require('./routes/index.js')
+const bodyParser = require('body-parser')
+const app = express()
 
 const cors = require('cors')
 
@@ -18,13 +18,13 @@ app.use(express.static('public'))
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/views/index.html')
 });
-
-
+/*
 // Not found middleware
 app.use((req, res, next) => {
+  console.log(req.body)
   return next({status: 404, message: 'not found'})
 })
-
+*/
 // Error Handling middleware
 app.use((err, req, res, next) => {
   let errCode, errMessage
