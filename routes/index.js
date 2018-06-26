@@ -13,16 +13,11 @@ module.exports = (app) => {
 	  });
   
   app.route('/api/exercise/new-user')
-     .post( (req, res) => {
-        console.log(req.params, req.path, req.body)
-     });
+     .post(clickHandler.addUser);
   
   
   app.route('/api/exercise/add')
-     .post( (req, res) => {
-        console.log(req.body);
-    
-     });
+     .post(clickHandler.logExercise);
   
   // Error Handling middleware
   app.use((err, req, res, next) => {

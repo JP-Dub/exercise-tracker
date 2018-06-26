@@ -10,8 +10,10 @@ var str = "abcde0fghij1klmno2pqrst3uvwxy4zABCD5EFGHI6JKLMN7OPQRS8TUVWX9YZ";  // 
 function ClickHandler ()  {
   
     this.addUser = (req, res) => {
-      
+      console.log(req.body, "body");
       Users.find(req.body), (err, user) => {
+        console.log(user)
+        /*
         if(err) throw err;
         if(user) {
           console.log(user);
@@ -31,10 +33,13 @@ function ClickHandler ()  {
           newUser.save( err => {
             if(err) throw err;
             res.json({username: req.body.username, userId : password});
-          });
-        }
+          }, {returnOriginal : false});
+        } */
       }
     }
+    
+    this.logExercise = (req, res) => {
+    };
 };
 
 module.exports = ClickHandler;
