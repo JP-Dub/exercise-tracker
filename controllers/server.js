@@ -49,7 +49,7 @@ function ClickHandler ()  {
                 date : req.body.date
               });
         
-        Users.save((err, user) => {
+        user.save((err, user) => {
           if(err) throw err;
           console.log('Saved', user)
         res.json({"Your exercise is logged": { "description": req.body.description, "duration" : req.body.duration + " min", "date": req.body.date} });
