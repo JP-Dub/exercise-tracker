@@ -43,7 +43,16 @@ function ClickHandler ()  {
       
       Users.findOne({userId: req.body.userId}, (err, log) => {
         if(err) throw err;
-        console.log(log)
+        // create a record of exercise submitted
+        var newLog = new Users();
+        newLog.description = req.body.description;
+        newLog.duration = req.body.duration + ' min';
+        newLog.date = req.body.date;
+        // save exercise log
+        newLog.save( err => {
+          if(err) throw err;
+          res.json({"Your exercise is logged": { "description": req.body.description, "duration" : req.body.description + " min", "date": req.body.date} });
+        });
       }); // end of .findOne()
       
     };
