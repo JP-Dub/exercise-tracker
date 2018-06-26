@@ -11,10 +11,11 @@ function ClickHandler ()  {
   
     this.addUser = (req, res) => {
       console.log(req.body, "body");
-      Users.find(req.body), (err, user) => {
+      Users.find({}, (err, user) => {
+         if(err) throw err;
         console.log(user)
         /*
-        if(err) throw err;
+       
         if(user) {
           console.log(user);
           let username = user.username;
@@ -35,7 +36,7 @@ function ClickHandler ()  {
             res.json({username: req.body.username, userId : password});
           }, {returnOriginal : false});
         } */
-      }
+      });
     }
     
     this.logExercise = (req, res) => {
