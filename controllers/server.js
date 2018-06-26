@@ -15,7 +15,8 @@ function ClickHandler ()  {
         if(err) throw err;
         if(user) {
           console.log(user);
-          res.json(user);
+          let username = user.username;
+          res.json({username : 'username already exists. Try another username please!'});
         } else {
           // create userID
           let password = 'XTuser-';    
@@ -23,13 +24,17 @@ function ClickHandler ()  {
             password += str[Math.floor(Math.random() * str.length)];
           }
           
-          var newUser = new User();
+          var newUser = new Users();
           newUser.username = req.body.username;
           newUser.userId = password;
           
           newUser.save( err => {
             if(err) throw err;
-    
+            res.json({username: req.body.username, userId : password});
+          });
+        }
+      }
+    }
 };
 
 module.exports = ClickHandler;
