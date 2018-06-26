@@ -38,19 +38,22 @@ function ClickHandler ()  {
     
     this.logExercise = (req, res) => {
       
-      Users.findOne({userId: req.body.userId}, (err, user) => {
+      Users.find({userId: req.body.userId}, (err, user) => {
         if(err) throw err;
         console.log(user)
-         //let log = user.log;           
-                /*
+        var log = user[0].log;           
+                
               log.push({
                 description : req.body.description,
                 duration : req.body.duration,
                 date : req.body.date
-              });*/
-      
-        res.json({"Your exercise is logged": { "description": req.body.description, "duration" : req.body.duration + " min", "date": req.body.date} });
+              });
         
+        Users.save((err, user) => {
+          if(err) throw err;
+          console.log('Saved', user)
+        res.json({"Your exercise is logged": { "description": req.body.description, "duration" : req.body.duration + " min", "date": req.body.date} });
+        });
       }); // end of .findOne()
       
     };
@@ -68,4 +71,4 @@ function ClickHandler ()  {
 module.exports = ClickHandler;
  
 //Joel-gg6yBd
-      
+//{"username":"Joel","userId":"Joel-hoh8Bz"}
