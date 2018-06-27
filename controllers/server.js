@@ -53,7 +53,7 @@ function ClickHandler ()  {
       
       Users.findOne({ userId: req.query.userId}).exec( (err, user) => {
         if(err) throw err;
-        
+        user[0].log
           console.log(user)
           res.json(user)
         
