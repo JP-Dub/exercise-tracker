@@ -39,13 +39,12 @@ function ClickHandler ()  {
     
     this.logExercise = (req, res) => {
       
-      Users.findOne({userId : req.body.userId},
+      Users.findOneAndUpdate({userId : req.body.userId},
                     {$push: { 'log': { description : req.body.description, duration : req.body.duration, date : req.body.date }}
                     }, { safe: true, upsert: true, new: true }, ( (err, user) => {
                     if(err) throw err;
-                      console.log(user.log)
-                      
 
+  
           res.json({"Your exercise is logged": { "description": req.body.description, "duration" : req.body.duration + " min", "date": req.body.date} });
           })
         
@@ -55,11 +54,12 @@ function ClickHandler ()  {
   
     this.printLog = (req, res) => {
       //console.log(req.query, req.params)
-      Users.findOne({}, (err, user) => {
+      Users.findOne({_id: '5b339aaaed62521c188f9501'}, (err, user) => {
         if(err) throw err;
         console.log(user)
+        res.json(user);
       });
-      res.json({"log" : "showlog"});
+      
     };
 };
 
@@ -67,3 +67,7 @@ module.exports = ClickHandler;
  
 
 //{"username":"Joel","userId":"Joel-R82uIB"}
+//{"username":"Jeff","userId":"Jeff-4LRYcY"}
+//Jeff-4LRYcY
+///api/exercise/log?
+// /api/exercise/log?Jeff-4LRYcY
