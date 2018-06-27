@@ -13,12 +13,18 @@ app.use(cors())
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
 
-
 app.use(express.static('public'));
 app.use(express.static('views'));
 
 // json layout
 app.set("json spaces", 2);
+
+routes(app);
+
+const listener = app.listen(process.env.PORT || 3000, () => {
+  console.log('Your app is listening on port ' + listener.address().port)
+})
+
 
 /*app.get('/', (req, res) => {
   res.sendFile(__dirname + '/views/index.html')
@@ -50,8 +56,3 @@ app.use((err, req, res, next) => {
     .send(errMessage)
 })
 */
-routes(app);
-
-const listener = app.listen(process.env.PORT || 3000, () => {
-  console.log('Your app is listening on port ' + listener.address().port)
-})
