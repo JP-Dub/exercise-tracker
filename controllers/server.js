@@ -37,6 +37,7 @@ function ClickHandler ()  {
       }); //end of .findOne()
     }
     
+    
     this.logExercise = (req, res) => {
       // find userId and add/save exercise to user profile
       Users.findOneAndUpdate({userId : req.body.userId
@@ -51,16 +52,11 @@ function ClickHandler ()  {
     
     this.printLog = (req, res) => {
       
-      Users.findOne({ userId: req.query.userId}).exec( (err, user) => {
+      Users.findOne({ userId: req.query.userId}).select('log -_id').sort( {date: -1} ).exec( (err, user) => {
         if(err) throw err;
-        user[0].log
-          console.log(user)
-          res.json(user)
-        
-        //console.log(user[0])
-        //var log = user[0].log;
-       // var sort = log.toObject().sort({duration:'asc'});
-        //res.json(user);
+        console.log(user.log)
+     
+       res.json(user);
       });
       
     };
