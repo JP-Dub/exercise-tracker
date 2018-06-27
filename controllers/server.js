@@ -51,12 +51,16 @@ function ClickHandler ()  {
     
     this.printLog = (req, res) => {
       
-      Users.find({ userId: req.query.userId, date : {$gte: req.query.from, $lte: req.query.to} }).exec( (err, user) => {
+      Users.find({ userId: req.query.userId }).exec( (err, user) => {
         if(err) throw err;
+        var sort = user[0].log.sort({date : {$gte: req.query.from, $lte: req.query.to}});
+          console.log(sort)
+          res.json(user)
+        
         //console.log(user[0])
-        var log = user[0].log;
-        var sort = log.toObject().sort({duration:'asc'});
-        res.json(log);
+        //var log = user[0].log;
+       // var sort = log.toObject().sort({duration:'asc'});
+        //res.json(user);
       });
       
     };
