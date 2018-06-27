@@ -55,7 +55,7 @@ function ClickHandler ()  {
         if(err) throw err;
         //console.log(user[0])
         var log = user[0].log;
-        var sort = log.sort({date:'asc'});
+        var sort = log.toObject().sort({duration:'asc'});
         res.json(sort);
       });
       
