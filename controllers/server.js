@@ -39,21 +39,17 @@ function ClickHandler ()  {
     
     this.logExercise = (req, res) => {
       
-      Users.findOne({userId : req.body.userId}).exec( (err, user) => {
-        if(err) throw err;
-        console.log(user.log)
-        var log = {        
-        description : req.body.description,
-        duration : req.body.duration,
-        date : req.body.date};
-        //user.log.push(log);
-        
-        Users.save((err, user) => {
-          if(err) throw err;
-          console.log('Saved', user)
+      Users.findOne({userId : req.body.userId},
+                    {$push: { 'log': { description : req.body.description, duration : req.body.duration, date : req.body.date }}
+                    }, { safe: true, upsert: true, new: true }, ( (err, user) => {
+                    if(err) throw err;
+                      console.log(user.log)
+                      
+
           res.json({"Your exercise is logged": { "description": req.body.description, "duration" : req.body.duration + " min", "date": req.body.date} });
-        }, {returnOriginal : true});
-      }); // end of .findOne()
+          })
+        
+      ); // end of .findOne()
       
     };
   
