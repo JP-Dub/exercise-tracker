@@ -17,6 +17,9 @@ app.use(bodyParser.json())
 app.use(express.static('public'));
 app.use(express.static('views'));
 
+// json layout
+app.set("json spaces", 2);
+
 /*app.get('/', (req, res) => {
   res.sendFile(__dirname + '/views/index.html')
 });*/

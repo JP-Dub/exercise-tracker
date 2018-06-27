@@ -38,25 +38,20 @@ function ClickHandler ()  {
     }
     
     this.logExercise = (req, res) => {
-      
+      // find userId and add/save exercise to user profile
       Users.findOneAndUpdate({userId : req.body.userId},
-                    {$push: { 'log': { description : req.body.description, duration : req.body.duration, date : req.body.date }}
-                    }, { safe: true, upsert: true, new: true }, ( (err, user) => {
-                    if(err) throw err;
-
-  
-          res.json({"Your exercise is logged": { "description": req.body.description, "duration" : req.body.duration + " min", "date": req.body.date} });
-          })
-        
-      ); // end of .findOne()
-      
+            {$push: { 'log': { description : req.body.description, duration : req.body.duration, date : req.body.date }}
+            }, { safe: true, upsert: true, new: true }, ( (err, user) => {
+              if(err) throw err;
+              res.json({"Your exercise is logged": { "description": req.body.description, "duration" : req.body.duration + " min", "date": req.body.date} });
+              })
+            ); // end of .findOne()
     };
   
+    
     this.printLog = (req, res) => {
-     //userId: Object.keys(req.query)[0]
-      var idNum = Object.keys(req.query)[0];
-      console.log(req.query, req.query)
-      Users.find({ userId: idNum }).select('log').exec( (err, user) => {
+      
+      Users.find({ userId: req.query.userId }).select('log, -_id').exec( (err, user) => {
         if(err) throw err;
         console.log(user)
         res.json(user);
