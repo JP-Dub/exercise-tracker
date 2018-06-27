@@ -53,8 +53,10 @@ function ClickHandler ()  {
     };
   
     this.printLog = (req, res) => {
-     
-      Users.find({userId: Object.keys(req.query)[0]}, ( (err, user) => {
+     //userId: Object.keys(req.query)[0]
+      var idNum = Object.keys(req.query)[0];
+      console.log(req.params, req.query)
+      Users.find({ userId: idNum }).select('log').exec( (err, user) => {
         if(err) throw err;
         console.log(user)
         res.json(user);
@@ -67,7 +69,7 @@ module.exports = ClickHandler;
  
 
 //{"username":"Joel","userId":"Joel-R82uIB"}
-//{"username":"Jeff","userId":"Jeff-4LRYcY"}
-//Jeff-4LRYcY
-///api/exercise/log?
-// /api/exercise/log?Jeff-4LRYcY
+// {"username":"Jeff","userId":"Jeff-Imarpb"}
+
+// /api/exercise/log?Joel-R82uIB
+// /api/exercise/log?Jeff-Imarpb
