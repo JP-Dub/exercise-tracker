@@ -39,8 +39,8 @@ function ClickHandler ()  {
     
     this.logExercise = (req, res) => {
       // find userId and add/save exercise to user profile
-      Users.findOneAndUpdate({userId : req.body.userId},
-            {$push: { 'log': { description : req.body.description, duration : req.body.duration, date : req.body.date }}
+      Users.findOneAndUpdate({userId : req.body.userId
+            }, {$push: { 'log': { description : req.body.description, duration : req.body.duration, date : req.body.date }}
             }, { safe: true, upsert: true, new: true }, ( (err, user) => {
               if(err) throw err;
               res.json({"Your exercise is logged": { "description": req.body.description, "duration" : req.body.duration + " min", "date": req.body.date} });
@@ -51,7 +51,7 @@ function ClickHandler ()  {
     
     this.printLog = (req, res) => {
       
-      Users.find({ userId: req.query.userId }).select({ log: 1, _id: 0} ).exec( (err, user) => {
+      Users.find({ userId: req.query.userId}).select('log').exec( (err, user) => {
         if(err) throw err;
         console.log(user)
         res.json(user);
