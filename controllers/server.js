@@ -41,7 +41,8 @@ function ClickHandler ()  {
       
       Users.findOne({userId : req.body.userId}, (err, user) => {
         if(err) throw err;
-        console.log(user)
+        console.log(user.log)
+        
         var log = user.log;           
         log.description = req.body.description;
         log.duration = req.body.duration;
