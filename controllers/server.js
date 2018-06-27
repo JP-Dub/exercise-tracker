@@ -55,7 +55,7 @@ function ClickHandler ()  {
     this.printLog = (req, res) => {
      //userId: Object.keys(req.query)[0]
       var idNum = Object.keys(req.query)[0];
-      console.log(req.params, req.query)
+      console.log(req.query, req.query)
       Users.find({ userId: idNum }).select('log').exec( (err, user) => {
         if(err) throw err;
         console.log(user)
@@ -73,3 +73,4 @@ module.exports = ClickHandler;
 
 // /api/exercise/log?Joel-R82uIB
 // /api/exercise/log?Jeff-Imarpb
+//  https://exercise-tracxer.glitch.me/api/exercise/log?userId=Jeff-Imarpb&from=2018-01-01&to=2018-07-01&limit=4
