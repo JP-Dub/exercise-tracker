@@ -51,10 +51,12 @@ function ClickHandler ()  {
     
     this.printLog = (req, res) => {
       
-      Users.find({ userId: req.query.userId }).select( 'log -_id' ).sort({date: -1}).exec( (err, user) => {
+      Users.find({ userId: req.query.userId }).select( 'log -_id' ).exec( (err, user) => {
         if(err) throw err;
-        console.log(user)
-        res.json(user);
+        //console.log(user[0])
+        var log = user[0].log;
+        var sort = log.sort({date:'asc'});
+        res.json(sort);
       });
       
     };
