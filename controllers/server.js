@@ -57,18 +57,19 @@ function ClickHandler ()  {
         var log = user[0].log;
         let modify = (date) => Date.parse(new Date(date));
         let from = modify(req.query.from), to = modify(req.query.to), newLog = [];
-     
+         console.log(0);
         for(var i=0; i < log.length; i++) {
           let date = modify(log[i].date);
           if(date >= from && date <= to) {
-            console.log(log[i].date.toString())
+            console.log(1)
             //log[i].date = log[i].date.toDateString()//.slice(0,10);
+            delete log[i]._id;
             newLog.push(log[i])
           }   
         }
-        
+
         newLog.sort((a, b) => modify(b.date) - modify(a.date) );
-       
+
         res.json(newLog.slice(0, req.query.limit));
       });
       
