@@ -61,9 +61,9 @@ function ClickHandler ()  {
         for(var i=0; i < log.length; i++) {
           let date = modify(log[i].date);
           if(date >= from && date <= to) {
-            console.log(log[i].date)
-            //log[i].date = log[i].date.slice(0,10);
-            //newLog.push(log[i])
+            console.log(log[i].date.toString())
+            log[i].date = Date(log[i].date);//log[i].date.toString()//slice(0,10);
+            newLog.push(log[i])
           }   
         }
         
