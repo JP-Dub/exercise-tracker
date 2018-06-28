@@ -62,7 +62,7 @@ function ClickHandler ()  {
           let date = modify(log[i].date);
           if(date >= from && date <= to) {
             console.log(log[i].date.toString())
-            log[i].date = Date(log[i].date);//log[i].date.toString()//slice(0,10);
+            //log[i].date = log[i].date.toDateString()//.slice(0,10);
             newLog.push(log[i])
           }   
         }
