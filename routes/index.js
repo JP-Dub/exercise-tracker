@@ -13,14 +13,19 @@ module.exports = (app) => {
 		     res.sendFile(path + '/views/index.html');
 	  });
   
-  app.route('/api/exercise/new-user')
+    app.route('/api/exercise/new-user')
      .post(clickHandler.addUser);
   
   app.route('/api/exercise/add')
      .post(clickHandler.logExercise);
   
   app.route('/api/exercise/log/')
-     .get(clickHandler.printLog);
+   app.get(clickHandler.printLog);
+  
+  // Not found middleware
+  app.use((req, res, next) => {
+      return next({status: 404, message: 'not found'})
+    })
   
   // Error Handling middleware
   app.use((err, req, res, next) => {
@@ -42,3 +47,16 @@ module.exports = (app) => {
   })
   
 };
+
+
+
+/*
+  app.route('/api/exercise/new-user')
+     .post(clickHandler.addUser);
+  
+  app.route('/api/exercise/add')
+     .post(clickHandler.logExercise);
+  
+  app.route('/api/exercise/log/')
+     .get(clickHandler.printLog);
+*/
