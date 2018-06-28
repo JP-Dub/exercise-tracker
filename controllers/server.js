@@ -10,32 +10,27 @@ function ClickHandler ()  {
       
       Users.findOne(req.body, (err, user) => {
         if(err) throw err;
-        console.log(req.body)
-        (req.body.username == '') == res.json({error: 'You need to first input your name!'});
-        /*Users.find({}).exec((err, results) => {
-          console.log(results)
-        });*/
-        if(req.body.username) {
-          
-          // user already exists
+
+        if(user) {
+          // user already exists return message
           let username = user.username;
           res.json({username : 'username already exists. Try another username please!'});
 
         } else {
-          // create random 6 alphanumeric string
+          // create random 6 character alphanumeric string and adds it to the username
           let password = req.body.username + '-';    
           for (var i = 0; i < 6; i++) {
             password += str[Math.floor(Math.random() * str.length)];
           }
-          // create new user
-          /*var newUser = new Users();
+          // creates new user and password
+          var newUser = new Users();
           newUser.username = req.body.username;
           newUser.userId = password;
           // save new user
           newUser.save( err => {
             if(err) throw err;
             res.json({username: req.body.username, userId : password});
-          }, {returnOriginal : false});  */
+          }, {returnOriginal : false});  
         }
         
       }); //end of .findOne()
@@ -59,15 +54,13 @@ function ClickHandler ()  {
       Users.find({ userId: req.query.userId}).select('log -_id').exec( (err, user) => {
         if(err) throw err;
                
-        let modify = (date) => Date.parse(new Date(date)); // creates a number from date
+        let modify = (date) => Date.parse(new Date(date)); // function creates a number from date obj for comparison
         let from = modify(req.query.from), to = modify(req.query.to), newLog = [];
         
         function sortObj(log) {
           for(var i=0; i < log.length; i++) {
             let date = modify(log[i].date);
             if(date >= from && date <= to) {
-            //log[i].date = log[i].date.toDateString()//.slice(0,10);
-            //delete log[i]._id;
             newLog.push(log[i])
             }   
           }
@@ -85,9 +78,7 @@ function ClickHandler ()  {
 module.exports = ClickHandler;
  
 
-//{"username":"Joel","userId":"Joel-R82uIB"}
+// {"username":"Joel","userId":"Joel-R82uIB"}
 // {"username":"Jeff","userId":"Jeff-Imarpb"}
 
-// /api/exercise/log?Joel-R82uIB
-// /api/exercise/log?Jeff-Imarpb
 //  https://exercise-tracxer.glitch.me/api/exercise/log?userId=Jeff-Imarpb&from=2018-01-01&to=2018-07-01&limit=4
