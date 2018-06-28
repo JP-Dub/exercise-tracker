@@ -54,10 +54,10 @@ function ClickHandler ()  {
       
       Users.find({ userId: req.query.userId}).select('log -_id').exec( (err, user) => {
         if(err) throw err;
-        var log = user[0].log;
+        //var log = user[0].log;
         let modify = (date) => Date.parse(new Date(date));
         let from = modify(req.query.from), to = modify(req.query.to), newLog = [];
-         console.log(0);
+        let newUser =  function sortObj(log,  function done() {
         for(var i=0; i < log.length; i++) {
           let date = modify(log[i].date);
           if(date >= from && date <= to) {
@@ -67,8 +67,10 @@ function ClickHandler ()  {
             newLog.push(log[i])
           }   
         }
+        done(newLog.sort((a, b) => modify(b.date) - modify(a.date) ) );
+        });
 
-        newLog.sort((a, b) => modify(b.date) - modify(a.date) );
+        
 
         res.json(newLog.slice(0, req.query.limit));
       });
