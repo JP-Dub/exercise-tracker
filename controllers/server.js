@@ -52,10 +52,11 @@ function ClickHandler ()  {
     
     this.printLog = (req, res) => {
       
-      Users.find({ userId: req.query.userId, log: /\w+/g})/*.select('log -_id')*/.exec( (err, user) => {
+      Users.find({ userId: req.query.userId}).select('log -_id').exec( (err, user) => {
         if(err) throw err;
-        console.log(user.log)
-     
+        console.log(user[0])
+        var user = user[0].log;
+         
        res.json(user);
       });
       
