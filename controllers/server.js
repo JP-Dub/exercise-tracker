@@ -54,8 +54,10 @@ function ClickHandler ()  {
       console.log(req.query.from)
       Users.find({ userId: req.query.userId}).select('log -_id').exec( (err, user) => {
         if(err) throw err;
-        //console.log(user[0])
         var user = user[0].log;
+        let modify = (date) => Date.parse(new Date(date));
+        
+        
          
        res.json(user);
       });
