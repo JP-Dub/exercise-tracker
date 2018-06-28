@@ -2,12 +2,10 @@
 var path = process.cwd();
 var ClickHandler = require(path + '/controllers/server.js');
 
-
 module.exports = (app) => {
   
-  
   let clickHandler = new ClickHandler();
-  
+  // middleware routes
   app.route('/')
 		 .get( (req, res) => {
 		     res.sendFile(path + '/views/index.html');

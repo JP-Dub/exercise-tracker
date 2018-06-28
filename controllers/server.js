@@ -54,10 +54,11 @@ function ClickHandler ()  {
       Users.find({ userId: req.query.userId}).select('log -_id').exec( (err, user) => {
         if(err) throw err;
                
-        let modify = (date) => Date.parse(new Date(date)); // function creates a number from date obj for comparison
-        let from = modify(req.query.from), to = modify(req.query.to), newLog = [];
+        let modify = (date) => Date.parse(new Date(date)); // function returns a number from date obj for comparison
+        let from = modify(req.query.from), to = modify(req.query.to);
+        let newLog = []; // create new array for modified user obj
         
-        function sortObj(log) {
+        function modifyCloneObj(log) {
           for(var i=0; i < log.length; i++) {
             let date = modify(log[i].date);
             if(date >= from && date <= to) {
@@ -67,7 +68,7 @@ function ClickHandler ()  {
         return newLog.sort((a, b) => modify(b.date) - modify(a.date) );// sorts user obj by date
         };
 
-        let newUser = sortObj(user[0].log);
+        let newUser = modifyCloneObj(user[0].log);
 
         res.json(newUser.slice(0, req.query.limit));
       }); // end of .find()
