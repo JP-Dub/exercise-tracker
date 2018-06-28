@@ -13,14 +13,14 @@ module.exports = (app) => {
 		     res.sendFile(path + '/views/index.html');
 	  });
   
-    app.route('/api/exercise/new-user')
+  app.route('/api/exercise/new-user')
      .post(clickHandler.addUser);
   
   app.route('/api/exercise/add')
      .post(clickHandler.logExercise);
   
   app.route('/api/exercise/log/')
-   app.get(clickHandler.printLog);
+     .get(clickHandler.printLog);
   
   // Not found middleware
   app.use((req, res, next) => {
@@ -47,16 +47,3 @@ module.exports = (app) => {
   })
   
 };
-
-
-
-/*
-  app.route('/api/exercise/new-user')
-     .post(clickHandler.addUser);
-  
-  app.route('/api/exercise/add')
-     .post(clickHandler.logExercise);
-  
-  app.route('/api/exercise/log/')
-     .get(clickHandler.printLog);
-*/
